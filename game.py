@@ -1,132 +1,125 @@
-def create_game():
-  return {
-    "energy":6,
-    "turns":6,
-    "fixed":[],
-    "charger":False,
-    "clue":False
-  }
-def check_result(state):
-  if len (state["fixed"]==3:
-    print("\n===ПОБЕДА!===")
-    print("все 3 ошибки исправлены.")
-    print("стенд EKEB готов к демонстрации!")
-    return "win"
+def chek_answer(number,answer):
+  answer=answer.strip().lower()
 
-if state["turns"]<=0:
-  print("\n===ПОРАЖЕНИЕ.===")
-  print("ходы закончились.")
-  return "lose"
 
-if state["energy"]<2 and not state["charger"]:
-  print("энергии недостаточноба зарядки больше нет.")
-  return "lose"
-  return"continue"
+if number ==1:
+  return answer =="ekeb"
 
-def play_game():
-  state=create_game()
+elif number == 2:
+   return answer=="120"
 
-print("\n===========================")
- print("EKEB:УСПЕТЬ ДО ДЕМО")
+elif numer == 3:
+  return answer=="almaty"
+
+return False
+
+
+def inspect_stand(state):
+  if state["clue"]:
+    print("Вы уже осматривали стенд. Новой улики нет.")
+    return
+
+state["clue"]=True
+state["turns"]-=1
+
+print("Вы осмотрели стенд.")
+print("Получена улика:Код доступна:EKEB")
+
+def take_charger(state):
+  if state["charger"]:
+    print("Зарядку уже забрали.")
+    return
+          
+state["charger"]=True
+state[turns"]-=1
+
+print("Вы нашли зарядку и добавили её в инвентарь")
+
+
+def use-charger(state):
+if not state["charger"]:
+  print("В инвентаре нет зарядки.")
+  return
+
+state["charger"]=False
+state["energy"]=min(6,state["energy"] +3)
+state["turns']-=1
+
+print("Зарядка использована.")
+print(f"Энергия теперь:{state['energy']}")
+
+def show_status(state);
+print("\n==========СТАТУС==========")
+print(f"Ходы:{state['turns']}')
+print(f"Исправлено ошибок:{len(state['fixed'])}из 3")
+
+if state["clue'];
+print("Улика:Код доступа:EKEB")
+else:
+ print("Улик нет")
+
+if state["charger"]:
+print("Инвентарь:Зарядка")
+
+else:
+ print("Инвентарь пуст")
+
+
 print("=============================")
-print("вам нужно исправить 3 ошибки")
-print("до начала демонстрации EKEB.")
-
-while TRUE:
-  print(f"энергия:{state['energy']}")
-   print(f"осталось ходов:{state['turns']}")
-    print(f"исправлено ошибок:{len(state['fixed'])}/3")
-print("============================")
-
-print("\n выберите действие:")
-print("1.осмотреть стенд")
-print("2.забрать зарядку")
-print("3.использовать зарядку")
-print("4.исправить ошибку")
-print("5.статус/инвентарь")
-print("0.вернуться в меню")
-
-command = input("ваш выбор:").strip()
-#пустой ввод
-if command =="":
-  print("пустой ввод.ход не расходуется.")
-continue
-
-#осмотр стенда
-if command == "1":
-  inspect_stand(state)
-
-#использовать зарядку
-elif command =="2":
-take_charger(state)
-
-#исправить ошибку
-elif command =="4":
-solve_error(state)
-
-#показать статус
-elif command == "5":
-show_status(state)
-
-#вернуться  в меню
-elif command == "0"
-print("возвращаемся в главное меню.")
-return
-
-# неверная команда
-        else:
-            print("неизвестная команда. ход не расходуется.")
-            continue
-
-        # проверяем, закончилась ли игра
-        result = check_result(state)
-
-        if result == "win" or result == "lose":
-            input("\nнажмите Enter, чтобы вернуться в меню...")
-            return
-
-def show_rules():
-    print("\n========== ПРАВИЛА ==========")
-    print("1. у вас есть 6 ходов.")
-    print("2. начальная энергия — 6.")
-    print("3. нужно исправить 3 ошибки.")
-    print("4. осмотр стенда даёт улику с кодом EKEB.")
-    print("5. зарядку можно забрать только один раз.")
-    print("6. зарядка добавляет 3 энергии, максимум — 6.")
-    print("7. исправление ошибки требует 2 энергии.")
-    print("8. победа — все 3 ошибки исправлены.")
-    print("9. после окончания игры можно начать новую.")
-    print("=============================")
-
-def main():
-    while True:
-        print("\n==============================")
-        print("      EKEB: УСПЕТЬ ДО ДЕМО")
-        print("==============================")
-        print("1. начать игру")
-        print("2. правила")
-        print("0. выход")
-
-        choice = input("выберите пункт: ").strip()
-
-        if choice == "1":
-            play_game()
-
-        elif choice == "2":
-            show_rules()
-
-        elif choice == "0":
-            print("программа завершена.")
-            break
-
- elif choice == "":
-            print("пустой ввод. выберите пункт меню.")
-
-        else:
-            print("неверный выбор. попробуйте снова.")
 
 
-if _name_ == "_main_":
-    main()
+def solve_error(state):
+ print("\n==========ОШИБКИ==========")
+ print("1.Ошибка А - ввести код EKEB")
+ Print("2.Ошибка Б - сколько минут в 2 часах?")
+ print"3.Ошибка С - привести Almaty к нижнему регистру")
+
+  choice=input("Выберите ошибку:").strip()
+
+   if choice not in ["1","2","3"]:
+      print("Неверный номер ошибки.Ресурсы не расходуются.")
+      return
+
+    number = int(choice)
+
+    if number in state["fixed"]:
+       print("Эта ошибка уже исправлена.")
+       return
+
+    if number == 1 and not state["clue"]:
+
+      print("Сначала нужно осмотреть стенд.")
+
+      return
+
+    if state["energy"]<2:
+
+       print("Недостаточно энергии.Нужно минимум 2.")
+
+       return
+
+    if number ==1:
+       answer = input("Сколько минут 2 часах?")
+
+      else:
+        answer = input("Введите Almaty в нижнем регистре:")
+
+      # Любая попытка ответа тратит 2 энергии и 1 ход
+
+      state["energy"]-=2
+      state["turns"]-=1
+
+      if check_answer(number,answer):
+
+    state["fixed"].append(number)
+        print("Правильный ответ!Ошибка исправлена.")
+
+      else:
+         print("Неверный ответ.Можно попробовать ещё раз.")
+      if state
+
+         
+
+
 
 
